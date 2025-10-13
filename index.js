@@ -116,7 +116,7 @@ async function callDialogflow(text, sessionId) {
 
     let respostaFinal = fulfillmentText;
 
-    if (intent === "Bebidas_alcoolicas") {
+    if (intent === "Me diga mais sobre") {
       const bebida = params.fields?.Bebida?.stringValue || text;
       respostaFinal = await consultarServico("bebidas", { bebida });
     }
