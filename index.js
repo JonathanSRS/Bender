@@ -118,7 +118,7 @@ async function callDialogflow(text, sessionId) {
 
     if (intent === "Me diga mais sobre") {
       const bebida = params.fields?.Bebida?.stringValue || text;
-      respostaFinal = await consultarServico("bebidas", { bebida });
+      respostaFinal = await consultarServico("bebidas", bebida);
     }
     return respostaFinal;
   } catch (err) {
@@ -137,7 +137,7 @@ async function consultarServico(tipo, parametros) {
     // Exemplo de roteamento de serviços
     switch (tipo) {
       case "bebidas":
-        url = `https://benderbar.onrender.com/bebidas/sobre/${encodeURIComponent(parametros.Bebida)}`;
+        url = `https://benderbar.onrender.com/bebidas/sobre/${encodeURIComponent(parametros)}`;
         break;
       default:
         return "Serviço não configurado.";
