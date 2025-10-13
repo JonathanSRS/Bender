@@ -106,12 +106,54 @@ async function callDialogflow(text, sessionId) {
     const responses = await sessionClient.detectIntent(request);
     const result = responses[0]?.queryResult;
 
+    const intent = result?.intent?.displayName || "default";
+    const params = result?.parameters || {};
+    const fulfillmentText = result?.fulfillmentText || "Não entendi 🤔";
+
+    console.log("Intent detectada:", intent);
+    console.log("Parâmetros:", JSON.stringify(params, null, 2));
     console.log("Resposta bruta do Dialogflow:", JSON.stringify(result, null, 2));
 
-    return result?.fulfillmentText || "Não entendi 🤔";
+    let respostaFinal = fulfillmentText;
+
+    if (intent === "Bebidas_alcoolicas") {
+      const bebida = params.fields?.Bebida?.stringValue || text;
+      respostaFinal = await consultarServico("bebidas", { bebida });
+    }
+    return respostaFinal;
   } catch (err) {
     console.error("Erro ao chamar Dialogflow:", err);
     return "Erro ao processar sua mensagem 😢";
+  }
+}
+
+// =======================
+// Função: consultar serviço externo
+// =======================
+async function consultarServico(tipo, parametros) {
+  try {
+    let url = "";
+
+    // Exemplo de roteamento de serviços
+    switch (tipo) {
+      case "bebidas":
+        url = `https://benderbar.onrender.com/bebidas/sobre/${encodeURIComponent(parametros.Bebida)}`;
+        break;
+      default:
+        return "Serviço não configurado.";
+    }
+
+    console.log(`Chamando serviço externo [${tipo}]: ${url}`);
+
+    const response = await fetch(url);
+    const data = await response.json();
+
+    console.log(`Resposta do serviço [${tipo}]:`, JSON.stringify(data, null, 2));
+
+    return data.mensagem || "Serviço retornou uma resposta vazia.";
+  } catch (err) {
+    console.error("Erro ao chamar serviço externo:", err);
+    return "Erro ao consultar serviço externo 😢";
   }
 }
 
