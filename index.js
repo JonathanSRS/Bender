@@ -150,7 +150,7 @@ async function consultarServico(tipo, parametros) {
 
     console.log(`Resposta do serviço [${tipo}]:`, JSON.stringify(data, null, 2));
 
-    return data.mensagem || "Serviço retornou uma resposta vazia.";
+    return data || "Serviço retornou uma resposta vazia.";
   } catch (err) {
     console.error("Erro ao chamar serviço externo:", err);
     return "Erro ao consultar serviço externo 😢";
