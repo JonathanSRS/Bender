@@ -19,9 +19,14 @@
   },
   "homepage": "https://github.com/JonathanSRS/Bender#readme",
   "dependencies": {
+    "@aws-sdk/client-lex-runtime-v2": "^3.1169.0",
     "@google-cloud/dialogflow": "^7.2.0",
     "express": "^5.1.0",
     "node-fetch": "^3.3.2",
     "uuid": "^13.0.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.6"
   }
 }
