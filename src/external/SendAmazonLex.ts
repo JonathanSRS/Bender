@@ -1,6 +1,6 @@
 import { LexRuntimeV2Client, RecognizeTextCommand } from "@aws-sdk/client-lex-runtime-v2";
 import { v4 as uuid } from "uuid";
-import Flow from "../service/Flow";
+import type Flow from "../service/Flow.ts";
 
 
 export default class SendAmazonLex implements Flow {
@@ -10,11 +10,16 @@ export default class SendAmazonLex implements Flow {
     });
 
     constructor(
-        private sessionId: string,
-        private text: string
-    ) {
-        this.languageCode = "pt_BR";
+        sessionId: string,
+        text: string
+    ){
+        this.languageCode = "pt-BR";
+        this.sessionId = sessionId;
+        this.text = text;
     }
+    
+    private sessionId: string;
+    private text: string;
 
     session(): string {
         return this.sessionId || uuid();
