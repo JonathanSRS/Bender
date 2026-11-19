@@ -1,0 +1,15 @@
+POST http://localhost:3000/webhook
+Content-Type: application/json
+
+{
+  "entry": [
+    {
+      "messaging": [
+        {
+          "sender": { "id": "teste-sessao-01" },
+          "message": { "text": "teste" }
+        }
+      ]
+    }
+  ]
+}
