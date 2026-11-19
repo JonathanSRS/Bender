@@ -1,6 +1,5 @@
 import express from "express";
-import SendController from "./controller/sendController";
-// import dotenv from "dotenv"
+import SendController from "./controller/SendController.ts";
 
 const app = express();
 const porta = process.env.API_PORT ?? 3000

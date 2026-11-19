@@ -1,6 +1,6 @@
-import { Express } from "express";
-import EventHandler from "../handler/EventHandler";
-import Events from "../shared/Events";
+import type { Express } from "express";
+import EventHandler from "../handler/EventHandler.ts";
+import Events from "../shared/Events.ts";
 
 export default class SendController {
 
@@ -12,10 +12,10 @@ export default class SendController {
             try {
                 const entry = req.body.entry?.[0];
                 const messaging = entry?.messaging?.[0];
-                const resposta = await new EventHandler(Events.DIALOG, {
+                const resposta = await new EventHandler({
                     id:messaging?.sender?.id,
                     message: messaging?.message?.text
-                }).executar();
+                }, Events.DIALOG).executar();
                 console.log("Resposta do Dialogflow:", resposta);
             } catch (err) {
                 console.error("Erro no processamento do webhook:", err);
