@@ -1,11 +1,13 @@
 {
   "name": "bender",
   "version": "1.0.0",
+  "type": "module",
   "description": "Bot",
-  "main": "index.js",
+  "main": "src/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "start": "node src/index.ts",
+    "dev": "node --env-file=.env src/index.ts"
   },
   "repository": {
     "type": "git",
@@ -26,7 +28,10 @@
     "uuid": "^13.0.0"
   },
   "devDependencies": {
+    "@swc/core": "^1.16.22",
+    "@swc/jest": "^0.2.39",
     "@types/express": "^5.0.6",
-    "@types/node": "^26.6.6"
+    "@types/node": "^26.6.6",
+    "jest": "^30.5.2"
   }
 }
